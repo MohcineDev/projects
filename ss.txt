@@ -1,3 +1,6 @@
+curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
+
+
 info: installing component 'cargo'
 info: installing component 'clippy'
 info: installing component 'rust-docs'

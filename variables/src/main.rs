@@ -33,4 +33,5 @@ fn main() {
 
     //Array
     let ar: [i32; 3] = [654, 46, 45];
+    println!("{}",ar[0]);
 }

@@ -1,0 +1,36 @@
+[package]
+name = "check"
+version = "0.1.0"
+edition = "2024"
+
+
+# [lib]
+# name = "temperature_conv"  # Name of the library crate
+# path = "../temperature_conv/src/lib.rs"
+
+# [lib]
+# name = "speed_transformation"  # Name of the library crate
+# path = "../speed_transformation/src/lib.rs"
+
+
+# [lib]
+# name = "groceries"  # Name of the library crate
+# path = "../groceries/src/lib.rs"
+
+
+# [lib]
+# name = "find_factorial"  # Name of the library crate
+# path = "../find_factorial/src/lib.rs"
+
+#  [lib]
+# name = "fibonacci2"  # Name of the library crate
+# path = "../fibonacci2/src/lib.rs"
+
+#   [lib]
+# name = "division_and_remainder"  # Name of the library crate
+# path = "../division_and_remainder/src/lib.rs"
+
+
+[lib]
+name = "tuples_refs"               # Name of the library crate
+path = "../tuples_refs/src/lib.rs"

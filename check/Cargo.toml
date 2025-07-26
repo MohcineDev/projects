@@ -1,8 +1,29 @@
+
+
 [package]
 name = "check"
 version = "0.1.0"
 edition = "2024"
 
+[dependencies]
+borrow = { path = "../borrow" }
+doubtful = { path = "../doubtful" }
+to_url = { path = "../to_url" }
+string_literals = { path = "../string_literals" }
+name_initials = { path = "../name_initials" }
+ownership = { path = "../ownership" }
+copy = { path = "../copy" }
+borrow_me_the_reference = { path = "../borrow_me_the_reference" }
+tic_tac_toe = { path = "../tic_tac_toe" }
+arrange_it = { path = "../arrange_it" }
+changes = { path = "../changes" }
+circle = { path = "../circle" }
+card_deck = { path = "../card_deck" }
+rand = "0.9.2"
+
+[[bin]]
+name = "check"
+path = "src/main.rs"
 
 # [lib]
 # name = "temperature_conv"  # Name of the library crate
@@ -36,8 +57,9 @@ edition = "2024"
 # path = "../tuples_refs/src/lib.rs"
 
 
-[lib]
-name = "borrow_me_the_reference"               # Name of the library crate
-path = "../borrow_me_the_reference/src/lib.rs"
-
-
+# [lib]
+# name = "tuples_refs"               # Name of the library crate
+# path = "../tuples_refs/src/lib.rs"
+# [lib]
+# name = "borrow"               # Name of the library crate
+# path = "../borrow/src/lib.rs"

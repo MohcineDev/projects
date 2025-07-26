@@ -31,6 +31,13 @@ edition = "2024"
 # path = "../division_and_remainder/src/lib.rs"
 
 
+#[lib]
+# name = "tuples_refs"               # Name of the library crate
+# path = "../tuples_refs/src/lib.rs"
+
+
 [lib]
-name = "tuples_refs"               # Name of the library crate
-path = "../tuples_refs/src/lib.rs"
+name = "borrow_me_the_reference"               # Name of the library crate
+path = "../borrow_me_the_reference/src/lib.rs"
+
+

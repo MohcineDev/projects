@@ -1,3 +1,5 @@
+use rand::Rng;
+use rand::distr::{Distribution, StandardUniform};
 fn main() {
     /*    let mut x = 5;
     println!("the value of x is: {x}");
@@ -33,5 +35,31 @@ fn main() {
 
     //Array
     let ar: [i32; 3] = [654, 46, 45];
-    println!("{}",ar[0]);
+    println!("{}", ar[0]);
+
+    let mut rng = rand::rng();
+
+    // an unbiased integer over the entire range:
+    let i: u8 = rng.random_range(0..3);
+    println!("random i = {i}");
+    let random_variant: Food = rand::random();
+    println!("random i = {:?}", random_variant);
+}
+ #[derive(Debug)]
+pub enum Food {
+    Burger,
+    Pizza,
+    Kebab,
+}
+
+impl Distribution<Food> for StandardUniform {
+    fn sample<R: Rng + ?Sized>(&self, rng: &mut R) -> Food {
+        let index: u8 = rng.random_range(0..3);
+        match index {
+            0 => Food::Burger,
+            1 => Food::Pizza,
+            2 => Food::Kebab,
+            _ => unreachable!(),
+        }
+    }
 }

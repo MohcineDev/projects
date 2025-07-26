@@ -16,9 +16,10 @@ copy = { path = "../copy" }
 borrow_me_the_reference = { path = "../borrow_me_the_reference" }
 tic_tac_toe = { path = "../tic_tac_toe" }
 arrange_it = { path = "../arrange_it" }
-changes = { path = "../changes" }
-circle = { path = "../circle" }
-card_deck = { path = "../card_deck" }
+# changes = { path = "../changes" }
+# circle = { path = "../circle" }
+card_deck = { path = "../testsssss/card_deck" }
+arrays = { path = "../testsssss/arrays" }
 rand = "0.9.2"
 
 [[bin]]

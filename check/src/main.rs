@@ -354,17 +354,59 @@
 //     );
 // }
 
-use card_deck::*;
+// use card_deck::*;
+
+// fn main() {
+//     let your_card = Card {
+//         rank: Rank::random(),
+//         suit: Suit::random(),
+//     };
+
+//     println!("Your card is {:?}", &your_card);
+
+//     if card_deck::winner_card(&your_card) {
+//         println!("You are the winner!");
+//     }
+// }
+
+
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+
+//     // We cannot truly test the randomness as there's no 100% accurate consistent way to prove through a predicate that it yields a truly random number
+
+//     #[test]
+//     fn test_winner() {
+//         let winner = Card {
+//             rank: Rank::Ace,
+//             suit: Suit::Spade,
+//         };
+
+//         for rank in 1..14 {
+//             for suit in 1..5 {
+//                 let card = Card {
+//                     rank: Rank::translate(rank),
+//                     suit: Suit::translate(suit),
+//                 };
+
+//                 assert_eq!(card_deck::winner_card(&card), card == winner);
+//             }
+//         }
+//     }
+// }
+
+use arrays::*;
 
 fn main() {
-    let your_card = Card {
-        rank: Rank::random(),
-        suit: Suit::random(),
-    };
+    let a:[i32; 10] = (1..=10)._;
+    let b = [5;10];
 
-    println!("Your card is {:?}", &your_card);
-
-    // if card_deck::winner_card(&your_card) {
-    //     println!("You are the winner!");
-    // }
+    println!("The sum of the elements in {:?} is {}", a, sum(&a));
+    println!("The sum of the elements in {:?} is {}", b, sum(&b));
+    println!(
+        "Array of {} elements filled with 10 = {:?}",
+        thirtytwo_tens().len(),
+        thirtytwo_tens()
+    );
 }

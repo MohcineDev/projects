@@ -20,6 +20,7 @@ arrange_it = { path = "../arrange_it" }
 # circle = { path = "../circle" }
 card_deck = { path = "../testsssss/card_deck" }
 arrays = { path = "../testsssss/arrays" }
+min_and_max = { path = "../testsssss/min_and_max" }
 rand = "0.9.2"
 
 [[bin]]

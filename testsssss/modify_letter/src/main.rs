@@ -32,7 +32,23 @@ pub fn remove_letter_insensitive(s: &str, letter: char) -> String {
     res
 }
 
-pub fn swap_letter_case(s: &str, letter: char) -> String {}
+pub fn swap_letter_case(s: &str, letter: char) -> String {
+    let mut res = String::from("");
+
+    let lower_letter = letter.to_lowercase().next().unwrap();
+    let upper_letter = letter.to_uppercase().next().unwrap();
+
+    for c in s.to_string().chars() {
+        if c == lower_letter {
+            res.push(upper_letter);
+        } else if c == upper_letter {
+            res.push(lower_letter);
+        } else {
+            res.push(c);
+        }
+    }
+    res
+}
 
 /*
 

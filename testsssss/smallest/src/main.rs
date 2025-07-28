@@ -18,9 +18,9 @@ pub fn smallest(h: HashMap<&str, i32>) -> i32 {
     if h.len() == 0 {
         return max;
     }
-    for (_, d) in h.iter() {
-        if *d < max {
-            max = *d;
+    for (_, d) in h {
+        if d < max {
+            max = d;
         }
     }
 

@@ -13,8 +13,10 @@ pub fn reverse_it(v: i32) -> String {
         sign = true;
     }
 
-    let mut ss = num.to_string();
-    let mut o: String = ss.chars().rev().collect();
+    let ss = num.to_string();
+    let nn = ss.chars().rev();
+    println!("ss  : {:?}",nn);
+    let o: String = ss.chars().rev().collect();
     if sign {
         res.push_str("-");
     }

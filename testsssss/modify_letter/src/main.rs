@@ -7,6 +7,10 @@ fn main() {
     println!("{}", swap_letter_case("byE bye", 'e'));
 }
 
+/* Joe is sleeping
+Jim is swimming
+bye byE */
+
 pub fn remove_letter_sensitive(s: &str, letter: char) -> String {
     let mut res = String::from("");
 

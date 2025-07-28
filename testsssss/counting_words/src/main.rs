@@ -6,20 +6,22 @@ fn counting_words(words: &str) -> HashMap<String, u32> {
     // println!("{}", words);
     let mut is_space = false;
 
-    for c in words.chars() {
+    for (index, c) in words.chars().enumerate() {
         if c == ' ' {
             alpha.push(c);
             is_space = true;
         }
-        if c == '\'' && !is_space {
+        if c == '\'' && !is_space && words[index] != ' '{
             alpha.push(c);
         }
+
         if c.is_alphabetic() && c != '\''{
             alpha.push(c);
             is_space = false;
         }
     }
 
+    println!("{}", words);
     println!("{}", alpha);
     for word in alpha.split_whitespace() {
         if let Some(value) = hash.get(&word.to_lowercase().to_string()) {

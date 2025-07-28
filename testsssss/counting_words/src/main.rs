@@ -46,7 +46,7 @@ mod tests {
     use super::*;
     use test;
 
-    fn test_counting(input: &str, expected: &[(&str, u32)]) {
+    fn test_counting(a:Vec::new()) input: &str, expected: &[(&str, u32)]) {
         let mut m: HashMap<String, u32> = counting_words(input);
         for &(k, v) in expected.iter() {
             assert_eq!(

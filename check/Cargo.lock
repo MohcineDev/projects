@@ -48,11 +48,12 @@ dependencies = [
  "card_deck",
  "copy",
  "doubtful",
+ "hashing",
  "min_and_max",
  "name_initials",
  "ownership",
- "rand",
  "string_literals",
+ "string_permutation",
  "tic_tac_toe",
  "to_url",
 ]
@@ -76,6 +77,10 @@ dependencies = [
  "r-efi",
  "wasi",
 ]
+
+[[package]]
+name = "hashing"
+version = "0.1.0"
 
 [[package]]
 name = "libc"
@@ -159,6 +164,10 @@ dependencies = [
 
 [[package]]
 name = "string_literals"
+version = "0.1.0"
+
+[[package]]
+name = "string_permutation"
 version = "0.1.0"
 
 [[package]]

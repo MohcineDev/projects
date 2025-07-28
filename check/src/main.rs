@@ -411,4 +411,101 @@
 //     );
 // }
 
- 
+// use string_permutation::*;
+
+// fn main() {
+//     let word = "thought";
+//     let word1 = "thougth";
+
+//     println!(
+//         "Is {:?} a permutation of {:?}? = {}",
+//         word,
+//         word1,
+//         is_permutation(word, word1)
+//     );
+// }
+
+
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+
+//     #[test]
+//     fn test_basic() {
+//         assert!(is_permutation("abcde", "edbca"));
+//         assert!(!is_permutation("avcde", "edbca"));
+//         assert!(!is_permutation("cde", "edbca"));
+//         assert!(is_permutation("code", "deco"));
+//         assert!(!is_permutation("code", "deeco"));
+//         assert!(!is_permutation("codde", "deeco"));
+//     }
+
+//     #[test]
+//     fn test_repeating_characters() {
+//         assert!(is_permutation("aab", "baa"));
+//     }
+
+//     #[test]
+//     fn test_one_char() {
+//         assert!(!is_permutation("a", "b"));
+//         assert!(is_permutation("a", "a"));
+//     }
+
+//     #[test]
+//     fn test_empty() {
+//         assert!(is_permutation("", ""));
+//     }
+
+//     #[test]
+//     fn test_special_characters() {
+//         assert!(is_permutation("!#%@", "@%#!"));
+//     }
+
+//     #[test]
+//     fn test_unicode() {
+//         assert!(is_permutation("hello♥", "♥oelhl"));
+//         assert!(!is_permutation("♥", "♥♥"));
+//     }
+// }
+
+
+use hashing::*;
+
+fn main() {
+    let v = [4, 7, 5, 2, 5, 1, 3];
+    
+    println!("mean {}", mean(&v));
+    println!("median {}", median(&v));
+    println!("mode {}", mode(&v));
+}
+
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use std::f64;
+
+    #[inline]
+    fn approx_eq(a: f64, b: f64) -> bool {
+        (a - b).abs() < f64::EPSILON
+    }
+
+    #[test]
+    fn test_mean() {
+        let v = [4, 7, 5, 2, 5, 1, 3];
+        assert!(approx_eq(mean(&v), 3.857142857142857));
+    }
+
+    #[test]
+    fn test_median() {
+        assert_eq!(median(&[4, 7, 5, 2, 5, 1, 3]), 4);
+        assert_eq!(median(&[2, 1, 5, 2, 7, 4]), 3);
+        assert_eq!(median(&[1, 7, 5, 5, 6, 4]), 5);
+    }
+
+    #[test]
+    fn test_mode() {
+        let v = [4, 7, 5, 2, 5, 1, 3];
+        assert_eq!(mode(&v), 5);
+    }
+}

@@ -368,46 +368,121 @@
 //         println!("You are the winner!");
 //     }
 // }
-
-
-// #[cfg(test)]
-// mod tests {
-//     use super::*;
-
-//     // We cannot truly test the randomness as there's no 100% accurate consistent way to prove through a predicate that it yields a truly random number
-
-//     #[test]
-//     fn test_winner() {
-//         let winner = Card {
-//             rank: Rank::Ace,
-//             suit: Suit::Spade,
-//         };
-
-//         for rank in 1..14 {
-//             for suit in 1..5 {
-//                 let card = Card {
-//                     rank: Rank::translate(rank),
-//                     suit: Suit::translate(suit),
-//                 };
-
-//                 assert_eq!(card_deck::winner_card(&card), card == winner);
-//             }
-//         }
-//     }
-// }
-
-// use arrays::*;
+ 
+//  use arrays::*;
 
 // fn main() {
-//     // let a:[i32; 10] = (1..=10)._;
+//     let a:Vec<i32>  = (1..=10).collect();
 //     let b = [5;10];
 
-//     // println!("The sum of the elements in {:?} is {}", a, sum(&a));
+//     println!("The sum of the elements in {:?} is {}", a, sum(&a));
 //     println!("The sum of the elements in {:?} is {}", b, sum(&b));
 //     println!(
 //         "Array of {} elements filled with 10 = {:?}",
 //         thirtytwo_tens().len(),
 //         thirtytwo_tens()
+//     );
+// }
+
+// use strings::*;
+
+// fn main() {
+// 	println!("length of {} = {}", "❤", char_length("❤"));
+// 	println!("length of {} = {}", "形声字", char_length("形聲字"));
+// 	println!("length of {} = {}", "change", char_length("change"));
+// 	println!("length of {} = {}", "😍", char_length("😍"));
+// }
+
+// use capitalizing::*;
+
+// fn main() {
+//     println!("{}", capitalize_first("joe is missing"));
+//     println!("{}", title_case("jill is leaving A"));
+//     println!("{}", change_case("heLLo THere"));
+// }
+ 
+
+// fn main() {
+//     // println!("{}", capitalize_first("joe is missing"));
+//     // println!("{}", title_case("jill is leaving A"));
+//     println!("{}", title_case("hello my\t\tname is carl"));
+//     // println!("{}", change_case("heLLo THere"));
+// }
+
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+
+//     #[test]
+//     fn test_capitalize_first() {
+//         assert_eq!(capitalize_first("hello"), "Hello");
+//         assert_eq!(capitalize_first("this is working"), "This is working");
+//     }
+
+//     #[test]
+//     fn test_title_case() {
+//         assert_eq!(title_case("this is a title"), "This Is A Title");
+//         assert_eq!(
+//             title_case("hello my\t\tname is carl"),
+//             "Hello My\t\tName Is Carl"
+//         );
+//     }
+
+//     #[test]
+//     fn test_change_case() {
+//         assert_eq!(change_case("PROgraming"), "proGRAMING");
+//         assert_eq!(change_case("heLLo THere"), "HEllO thERE");
+//     }
+
+//     #[test]
+//     fn test_empty() {
+//         assert_eq!(capitalize_first(""), "");
+//         assert_eq!(title_case(""), "");
+//         assert_eq!(change_case(""), "");
+//     }
+// }
+    
+// use edit_distance::*;
+
+// fn main() {
+//     let source = "alignment";
+//     let target = "assignment";
+
+//     println!(
+//         "It's necessary to make {} change(s) to {:?} to get {:?}",
+//         edit_distance(source, target),
+//         source,
+//         target
+//     );
+// }
+
+
+// use simple_hash::*;
+
+// const SENTENCE: &str = "this is a very basic sentence with only a few repetitions. once again this is very basic but it should be enough for basic tests";
+
+// fn main() {
+//     let words = SENTENCE.split_ascii_whitespace().collect::<Vec<_>>();
+//     let frequency_count = word_frequency_counter(&words);
+
+//     println!("{:?}", frequency_count);
+//       println!("{}", nb_distinct_words(&frequency_count));
+// }
+
+// use bigger::*;
+// use std::collections::HashMap;
+
+// fn main() {
+//     let hash = HashMap::from_iter([
+//         ("Daniel", 122),
+//         ("Ashley", 333),
+//         ("Katie", 334),
+//         ("Robert", 14),
+//     ]);
+
+//     println!(
+//         "The biggest of the elements in the HashMap is {}",
+//         bigger(hash)
 //     );
 // }
 
@@ -468,44 +543,70 @@
 //     }
 // }
 
+// use hashing::*;
 
-use hashing::*;
+// fn main() {
+//     let v = [4, 7, 5, 2, 5, 1, 3];
+
+//     println!("mean {}", mean(&v));
+//     println!("median {}", median(&v));
+//     println!("mode {}", mode(&v));
+// }
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+//     use std::f64;
+
+//     #[inline]
+//     fn approx_eq(a: f64, b: f64) -> bool {
+//         (a - b).abs() < f64::EPSILON
+//     }
+
+//     #[test]
+//     fn test_mean() {
+//         let v = [4, 7, 5, 2, 5, 1, 3];
+//         assert!(approx_eq(mean(&v), 3.857142857142857));
+//     }
+
+//     #[test]
+//     fn test_median() {
+//         assert_eq!(median(&[4, 7, 5, 2, 5, 1, 3]), 4);
+//         assert_eq!(median(&[2, 1, 5, 2, 7, 4]), 3);
+//         assert_eq!(median(&[1, 7, 5, 5, 6, 4]), 5);
+//     }
+
+//     #[test]
+//     fn test_mode() {
+//         let v = [4, 7, 5, 2, 5, 1, 3];
+//         assert_eq!(mode(&v), 5);
+//     }
+// }
+
+use collect::*;
 
 fn main() {
-    let v = [4, 7, 5, 2, 5, 1, 3];
-    
-    println!("mean {}", mean(&v));
-    println!("median {}", median(&v));
-    println!("mode {}", mode(&v));
-}
+    let mut v = [3, 2, 4, 5, 1, 7];
+    let mut v_clone = v;
 
+    bubble_sort(&mut v);
+    println!("{:?}", v);
+
+    v_clone.sort_unstable();
+    println!("{:?}", v_clone);
+}
 
 #[cfg(test)]
 mod tests {
     use super::*;
-    use std::f64;
-
-    #[inline]
-    fn approx_eq(a: f64, b: f64) -> bool {
-        (a - b).abs() < f64::EPSILON
-    }
 
     #[test]
-    fn test_mean() {
-        let v = [4, 7, 5, 2, 5, 1, 3];
-        assert!(approx_eq(mean(&v), 3.857142857142857));
-    }
+    fn test_ordering() {
+        let mut v = [3, 2, 4, 5, 1, 7, 9, 8];
+        let mut v_clone = v;
 
-    #[test]
-    fn test_median() {
-        assert_eq!(median(&[4, 7, 5, 2, 5, 1, 3]), 4);
-        assert_eq!(median(&[2, 1, 5, 2, 7, 4]), 3);
-        assert_eq!(median(&[1, 7, 5, 5, 6, 4]), 5);
-    }
+        v_clone.sort_unstable();
+        bubble_sort(&mut v);
 
-    #[test]
-    fn test_mode() {
-        let v = [4, 7, 5, 2, 5, 1, 3];
-        assert_eq!(mode(&v), 5);
+        assert_eq!(v, v_clone);
     }
 }

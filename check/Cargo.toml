@@ -16,14 +16,18 @@ copy = { path = "../copy" }
 borrow_me_the_reference = { path = "../borrow_me_the_reference" }
 tic_tac_toe = { path = "../tic_tac_toe" }
 arrange_it = { path = "../arrange_it" }
-# changes = { path = "../changes" }
-# circle = { path = "../circle" }
-card_deck = { path = "../testsssss/card_deck" }
-arrays = { path = "../testsssss/arrays" }
-min_and_max = { path = "../testsssss/min_and_max" }
+changes = { path = "../changes" }
+circle = { path = "../circle" }
+card_deck = { path = "../card_deck" }
+arrays = { path = "../arrays" }
+strings = { path = "../strings" }
+capitalizing = { path = "../capitalizing" }
+edit_distance = { path = "../edit_distance" }
+simple_hash = { path = "../simple_hash" }
+bigger = { path = "../bigger" }
 string_permutation = { path = "../string_permutation" }
 hashing = { path = "../hashing" }
-
+collect = { path = "../collect" }
 
 [[bin]]
 name = "check"
@@ -54,11 +58,6 @@ path = "src/main.rs"
 #   [lib]
 # name = "division_and_remainder"  # Name of the library crate
 # path = "../division_and_remainder/src/lib.rs"
-
-
-#[lib]
-# name = "tuples_refs"               # Name of the library crate
-# path = "../tuples_refs/src/lib.rs"
 
 
 # [lib]

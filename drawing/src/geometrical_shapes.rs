@@ -1,5 +1,4 @@
 use rand::Rng;
-use raster::Color;
 pub trait Drawable {
     fn draw(&self, image: &mut raster::Image);
     fn color(&self) -> raster::Color;
@@ -19,10 +18,10 @@ impl Point {
     }
 
     pub fn random(width: i32, height: i32) -> Self {
-        let mut rng = rand::thread_rng();
+        let mut rng = rand::rng();
         Point {
-            x: rng.gen_range(1..=width),
-            y: rng.gen_range(1..=height),
+            x: rng.random_range(1..=width),
+            y: rng.random_range(1..=height),
             // y: rand::random::<i32>() % height,
         }
     }
@@ -140,12 +139,6 @@ impl Rectangle {
         }
     }
 
-    // add random rec
-    pub fn random(width: i32, height: i32) -> Self {
-        let p1 = Point::random(width, height);
-        let p2 = Point::random(width, height);
-        Rectangle::new(&p1, &p2)
-    }
 }
 
 impl Drawable for Rectangle {
@@ -188,8 +181,10 @@ impl Circle {
     }
 
     pub fn random(width: i32, height: i32) -> Self {
-        let center = Point::random(width, height);
-        let radius = rand::random::<i32>() % 100 + 10;
+        let center: Point = Point::random(width, height);
+        let mut rng = rand::rng();
+     
+        let radius =  rng.random_range(10..=200);
         Circle::new(&center, radius)
     }
 }
@@ -231,12 +226,12 @@ impl Drawable for Circle {
 
     fn color(&self) -> raster::Color {
         // raster::Color::rgb(0, 255, 255)
-              let mut rng = rand::thread_rng();
+              let mut rng = rand::rng();
 
            raster::Color::rgb(
-            rng.gen_range(0..=255),
-            rng.gen_range(0..=255),
-            rng.gen_range(0..=255),
+            rng.random_range(0..=255),
+            rng.random_range(0..=255),
+            rng.random_range(0..=255),
         )
     }
 }

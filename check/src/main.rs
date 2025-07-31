@@ -582,31 +582,175 @@
 //     }
 // }
 
-use collect::*;
+// use collect::*;
+
+// fn main() {
+//     let mut v = [3, 2, 4, 5, 1, 7];
+//     let mut v_clone = v;
+
+//     bubble_sort(&mut v);
+//     println!("{:?}", v);
+
+//     v_clone.sort_unstable();
+//     println!("{:?}", v_clone);
+// }
+
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+
+//     #[test]
+//     fn test_ordering() {
+//         let mut v = [3, 2, 4, 5, 1, 7, 9, 8];
+//         let mut v_clone = v;
+
+//         v_clone.sort_unstable();
+//         bubble_sort(&mut v);
+
+//         assert_eq!(v, v_clone);
+//     }
+// }
+
+// use unwrap_or_expect::*;
+
+// fn main() {
+//     println!("{}", fetch_data(Ok("server1.com"), Security::Warning));
+//     println!("{}", fetch_data(Err("server.com"), Security::Warning));
+//     println!("{}", fetch_data(Err("server2.com"), Security::NotFound));
+
+//     // Panics with no custom message
+//     // fetch_data(Err("ERROR CRITICAL"), Security::Unknown);
+
+//     // Panics with the message "ERROR: program stops"
+//     // fetch_data(Err("server.com"), Security::Message);
+
+//     // Panics with the message "malicious_server.com"
+//     // fetch_data(Ok("malicious_server.com"), Security::UnexpectedUrl);
+// }
+ 
+// #[cfg(test)]
+// mod tests {
+//     use super::*;
+
+//     #[test]
+//     #[should_panic(expected = "ERROR: program stops")]
+//     fn test_expect() {
+//         fetch_data(Err(""), Security::Message);
+//     }
+//     #[test]
+//     #[should_panic(expected = "called `Result::unwrap()` on an `Err` value: \"ERROR CRITICAL\"")]
+//     fn test_unwrap() {
+//         fetch_data(Err("ERROR CRITICAL"), Security::Unknown);
+//     }
+//     #[test]
+//     #[should_panic(expected = "malicious_server.com")]
+//     fn test_unwrap_err() {
+//         fetch_data(Ok("malicious_server.com"), Security::UnexpectedUrl);
+//     }
+//     #[test]
+//     fn test_unwrap_or() {
+//         assert_eq!(
+//             fetch_data(Err(""), Security::Warning),
+//             "WARNING: check the server".to_string()
+//         );
+//     }
+//     #[test]
+//     fn test_unwrap_or_else() {
+//         assert_eq!(
+//             fetch_data(Err("another_server.com"), Security::NotFound),
+//             "Not found: another_server.com".to_string()
+//         );
+//     }
+//     #[test]
+//     fn test_ok() {
+//         assert_eq!(
+//             fetch_data(Ok("server.com"), Security::Message),
+//             "server.com"
+//         );
+//         assert_eq!(
+//             fetch_data(Ok("server.com"), Security::Warning),
+//             "server.com"
+//         );
+//         assert_eq!(
+//             fetch_data(Ok("server.com"), Security::NotFound),
+//             "server.com"
+//         );
+//         assert_eq!(
+//             fetch_data(Ok("server.com"), Security::Unknown),
+//             "server.com"
+//         );
+//     }
+// }
+// use panic::*;
+// use std::fs::{self, File};
+
+// fn main() {
+//     let filename = "created.txt";
+//     File::create(filename).unwrap();
+
+//     println!("{:?}", open_file(filename));
+
+//     fs::remove_file(filename).unwrap();
+
+//     // this should panic!
+//     open_file(filename);
+// }
+
+// use std::fs;
+
+// fn main() {
+//     let path = "a.txt";
+
+//     handling::open_or_create(&path, "content to be written");
+
+//     let contents = fs::read_to_string(path).unwrap();
+//     println!("{}", contents);
+// }
+
+// fn main() {
+//     ["hello there", "", "you are stupid", "stupid"]
+//         .into_iter()
+//         .for_each(|m| println!("{:?}", profanity_filter::check_ms(m)));
+// }
+
+
+// use question_mark::*;
+
+// fn main() {
+//     let a = One {
+//         first_layer: Some(Two {
+//             second_layer: Some(Three {
+//                 third_layer: Some(Four {
+//                     fourth_layer: Some(1000)
+//                 })
+//             })
+//         })
+//     };
+
+//     println!("{:?}", a.get_fourth_layer());
+// }
+
+
+use banner::*;
+use std::collections::HashMap;
 
 fn main() {
-    let mut v = [3, 2, 4, 5, 1, 7];
-    let mut v_clone = v;
+    let mut handler = FlagsHandler { flags: HashMap::new() };
 
-    bubble_sort(&mut v);
-    println!("{:?}", v);
+    let d = Flag::opt_flag("division", "divides the values, formula (a / b)");
+    let r = Flag::opt_flag(
+        "remainder",
+        "remainder of the division between two values, formula (a % b)",
+    );
 
-    v_clone.sort_unstable();
-    println!("{:?}", v_clone);
-}
+    handler.add_flag(d, div);
+    handler.add_flag(r, rem);
 
-#[cfg(test)]
-mod tests {
-    use super::*;
+    println!("{:?}", handler.exec_func("-d", &["1.0", "2.0"]));
 
-    #[test]
-    fn test_ordering() {
-        let mut v = [3, 2, 4, 5, 1, 7, 9, 8];
-        let mut v_clone = v;
+    println!("{:?}", handler.exec_func("-r", &["2.0", "2.0"]));
 
-        v_clone.sort_unstable();
-        bubble_sort(&mut v);
+    println!("{:?}", handler.exec_func("--division", &["a", "2.0"]));
 
-        assert_eq!(v, v_clone);
-    }
+    println!("{:?}", handler.exec_func("--remainder", &["2.0", "fd"]));
 }

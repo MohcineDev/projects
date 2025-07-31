@@ -1,4 +1,6 @@
 use rand::Rng;
+
+
 pub trait Drawable {
     fn draw(&self, image: &mut raster::Image);
     fn color(&self) -> raster::Color;
@@ -18,10 +20,10 @@ impl Point {
     }
 
     pub fn random(width: i32, height: i32) -> Self {
-        let mut rng = rand::rng();
+        let mut rng = rand::thread_rng();
         Point {
-            x: rng.random_range(1..=width),
-            y: rng.random_range(1..=height),
+            x: rng.gen_range(1..=width),
+            y: rng.gen_range(1..=height),
             // y: rand::random::<i32>() % height,
         }
     }
@@ -87,7 +89,7 @@ impl Drawable for Line {
     }
 
     fn color(&self) -> raster::Color {
-        raster::Color::rgb(255,255,255)
+        raster::Color::rgb(255, 255, 255)
     }
 }
 
@@ -118,8 +120,17 @@ impl Drawable for Triangle {
         Line::new(&self.p3, &self.p1).draw(image);
     }
 
+ 
+
+
     fn color(&self) -> raster::Color {
-        raster::Color::rgb(0, 255, 0)
+        raster::Color::rgba(255, 255, 255, 1)
+        //  let mut rng = rand::thread_rng();
+        // raster::Color::rgb(
+        //     rng.gen_range(0..=255),
+        //     rng.gen_range(0..=255),
+        //     rng.gen_range(0..=255),
+        // )
     }
 }
 //
@@ -139,6 +150,12 @@ impl Rectangle {
         }
     }
 
+    // add random rec
+    /* pub fn random(width: i32, height: i32) -> Self {
+        let p1 = Point::random(width, height);
+        let p2 = Point::random(width, height);
+        Rectangle::new(&p1, &p2)
+    } */
 }
 
 impl Drawable for Rectangle {
@@ -160,13 +177,55 @@ impl Drawable for Rectangle {
     }
 
     fn color(&self) -> raster::Color {
-        raster::Color::rgb(255, 255, 0)
+        raster::Color::rgba(255, 255, 255, 1)
     }
 }
 
 //
 // circle logic
 //
+impl Drawable for Circle {
+    fn draw(&self, image: &mut raster::Image) {
+        let cx = self.center.x;
+        let cy = self.center.y;
+        let r = self.radius;
+        let mut x = 0;
+        let mut y = -r;
+        let mut p = -r;
+        let col=self.color();
+        while x < -y {
+            if p > 0 {
+                y += 1;
+                p += 2 * (x + y) + 1;
+            } else {
+                p += 2 * x + 1;
+            }
+
+            image.display(cx + x, cy + y, col.clone());
+            image.display(cx - x, cy + y, col.clone());
+            image.display(cx + x, cy - y, col.clone());
+            image.display(cx - x, cy - y, col.clone());
+            image.display(cx + y, cy + x, col.clone());
+            image.display(cx + y, cy - x, col.clone());
+            image.display(cx - y, cy + x, col.clone());
+            image.display(cx - y, cy - x, col.clone());
+            x += 1;
+        }
+    }
+
+
+
+    fn color(&self) -> raster::Color {
+        let mut rng = rand::thread_rng();
+        raster::Color::rgb(
+            rng.gen_range(0..=255),
+            rng.gen_range(0..=255),
+            rng.gen_range(0..=255),
+        )
+        //   raster::Color::rgb(0, 255, 255)
+    }
+}
+
 pub struct Circle {
     center: Point,
     radius: i32,
@@ -181,57 +240,59 @@ impl Circle {
     }
 
     pub fn random(width: i32, height: i32) -> Self {
-        let center: Point = Point::random(width, height);
-        let mut rng = rand::rng();
-     
-        let radius =  rng.random_range(10..=200);
+        let center = Point::random(width, height);
+        let radius = rand::random::<i32>() % 1000 ;
         Circle::new(&center, radius)
     }
 }
 
-//https://www.youtube.com/watch?v=hpiILbMkF9w
-impl Drawable for Circle {
+
+
+
+#[derive(Debug, Clone, Copy)]
+pub struct Pentagon {
+    center: Point,
+    radius: i32,
+}
+
+
+impl Pentagon {
+    pub fn new(center: &Point, radius: i32) -> Self {
+        Pentagon {
+            center: *center,
+            radius,
+        }
+    }
+
+    fn vertices(&self) -> [Point; 5] {
+        let mut points = [Point::new(0, 0); 5];
+        let angle_step = std::f64::consts::TAU / 5.0; // TAU = 2π
+
+        for i in 0..5 {
+            let angle = i as f64 * angle_step - std::f64::consts::FRAC_PI_2; // rotate to start at top
+            let x = self.center.x as f64 + (self.radius as f64 * angle.cos());
+            let y = self.center.y as f64 + (self.radius as f64 * angle.sin());
+            points[i] = Point::new(x.round() as i32, y.round() as i32);
+        }
+
+        points
+    }
+}
+
+
+impl Drawable for Pentagon {
     fn draw(&self, image: &mut raster::Image) {
-
-        let cx = self.center.x;
-        let cy = self.center.y;
-        let r = self.radius;
-
-        let mut x = 0;
-        let mut y = -r;
-        let mut p = -r;
-  
-            let col= self.color();
-
-        while x < -y {
-            if p > 0 {
-                y += 1;
-                p += 2 * (x + y) + 1;
-            } else {
-                p += 2 * x + 1;
-            }
-
-
-            image.display(cx + x, cy + y, col.clone());
-            image.display(cx - x, cy + y, col.clone());
-            image.display(cx + x, cy - y, col.clone());
-            image.display(cx - x, cy - y, col.clone());
-            image.display(cx + y, cy + x, col.clone());
-            image.display(cx + y, cy - x, col.clone());
-            image.display(cx - y, cy + x, col.clone());
-            image.display(cx - y, cy - x, col.clone());
-            x += 1;
+        let points = self.vertices();
+        for i in 0..5 {
+            let next = (i + 1) % 5;
+            Line::new(&points[i], &points[next]).draw(image);
         }
     }
 
     fn color(&self) -> raster::Color {
-        // raster::Color::rgb(0, 255, 255)
-              let mut rng = rand::rng();
-
-           raster::Color::rgb(
-            rng.random_range(0..=255),
-            rng.random_range(0..=255),
-            rng.random_range(0..=255),
-        )
+        raster::Color::rgb(255, 105, 180) // hot pink
     }
 }
+
+
+

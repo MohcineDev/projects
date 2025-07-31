@@ -12,14 +12,19 @@ fn main() {
     gs::Point::random(image.width, image.height).draw(&mut image);
 
     let rectangle = gs::Rectangle::new(&gs::Point::new(150, 300), &gs::Point::new(50, 60));
-   
     rectangle.draw(&mut image);
 
-    let triangle = gs::Triangle::new (
-            &gs::Point::new(500, 500),
-            &gs::Point::new(250, 700),
-            &gs::Point::new(700, 800),
+let   pentagon = gs::Pentagon::new(&gs::Point::new(400, 400), 150);
+pentagon.draw(&mut image);
+
+    //gs::Rectangle::random(image.width, image.height).draw(&mut image);
+
+    let triangle = gs::Triangle::new(
+        &gs::Point::new(500, 500),
+        &gs::Point::new(250, 700),
+        &gs::Point::new(700, 800),
     );
+
     triangle.draw(&mut image);
 
     for _ in 1..50 {
@@ -29,10 +34,23 @@ fn main() {
     raster::save(&image, "image.png").unwrap();
 }
 
+
+
+
+
+
+
+
+
+
+
 impl Displayable for Image {
     fn display(&mut self, x: i32, y: i32, color: Color) {
         if x >= 0 && x < self.width && y >= 0 && y < self.height {
-            self.set_pixel(x, y, color).unwrap();
-        }
+            self.set_pixel(x, y, color.clone()).unwrap();
+        } 
     }
 }
+
+
+

@@ -33,8 +33,35 @@ fn main() {
     }
     println!("------------------");
 
-      for number in (1..4).rev() {
+    for number in (1..4).rev() {
         println!("{number}!");
     }
     println!("LIFTOFF!!!");
+
+    //--------
+    println!("------------!!!");
+    let mut c = 0;
+    let loop_value = loop {
+        println!("Hello from loop");
+        if c == 3 {
+            break 120;
+        }
+        c += 1;
+    };
+    println!("loop value = {}", loop_value);
+    println!("------------!!!");
+
+    let mut b=0;
+    'main_loop: loop{
+        println!("from main loop");
+
+        'inner_loop: loop{
+            b+=1;
+            println!("inner loop");
+
+            if b==3 {
+                break 'main_loop;
+            }
+        }
+    }
 }

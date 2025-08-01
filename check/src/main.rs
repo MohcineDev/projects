@@ -368,7 +368,7 @@
 //         println!("You are the winner!");
 //     }
 // }
- 
+
 //  use arrays::*;
 
 // fn main() {
@@ -400,7 +400,6 @@
 //     println!("{}", title_case("jill is leaving A"));
 //     println!("{}", change_case("heLLo THere"));
 // }
- 
 
 // fn main() {
 //     // println!("{}", capitalize_first("joe is missing"));
@@ -441,7 +440,7 @@
 //         assert_eq!(change_case(""), "");
 //     }
 // }
-    
+
 // use edit_distance::*;
 
 // fn main() {
@@ -455,7 +454,6 @@
 //         target
 //     );
 // }
-
 
 // use simple_hash::*;
 
@@ -499,7 +497,6 @@
 //         is_permutation(word, word1)
 //     );
 // }
-
 
 // #[cfg(test)]
 // mod tests {
@@ -627,7 +624,7 @@
 //     // Panics with the message "malicious_server.com"
 //     // fetch_data(Ok("malicious_server.com"), Security::UnexpectedUrl);
 // }
- 
+
 // #[cfg(test)]
 // mod tests {
 //     use super::*;
@@ -713,7 +710,6 @@
 //         .for_each(|m| println!("{:?}", profanity_filter::check_ms(m)));
 // }
 
-
 // use question_mark::*;
 
 // fn main() {
@@ -730,12 +726,13 @@
 //     println!("{:?}", a.get_fourth_layer());
 // }
 
-
 use banner::*;
-use std::collections::HashMap;
+use std::{collections::HashMap, sync::LazyLock};
 
 fn main() {
-    let mut handler = FlagsHandler { flags: HashMap::new() };
+    let mut handler = FlagsHandler {
+        flags: HashMap::new(),
+    };
 
     let d = Flag::opt_flag("division", "divides the values, formula (a / b)");
     let r = Flag::opt_flag(
@@ -753,4 +750,71 @@ fn main() {
     println!("{:?}", handler.exec_func("--division", &["a", "2.0"]));
 
     println!("{:?}", handler.exec_func("--remainder", &["2.0", "fd"]));
+}
+
+static HANDLER: LazyLock<FlagsHandler> = LazyLock::new(|| {
+    let mut handler = FlagsHandler {
+        flags: HashMap::new(),
+    };
+
+    handler.add_flag(Flag::opt_flag("division", "divides two numbers"), div);
+    handler.add_flag(
+        Flag::opt_flag(
+            "remainder",
+            "gives the remainder of the division between two numbers",
+        ),
+        rem,
+    );
+
+    handler
+});
+
+#[test]
+fn test_simple() {
+    for a in ["-d", "--division"] {
+        assert_eq!(HANDLER.exec_func(a, &["1.0", "2.0"]), Ok("0.5".to_owned()));
+    }
+
+    for a in ["-r", "--remainder"] {
+        assert_eq!(HANDLER.exec_func(a, &["2.0", "2.0"]), Ok("0".to_owned()));
+    }
+
+    for a in ["-d", "--division"] {
+        assert_eq!(
+            HANDLER.exec_func(a, &["12.323", "212.32"]),
+            Ok("0.058039751318764134".to_owned())
+        );
+    }
+
+    for a in ["-r", "--remainder"] {
+        assert_eq!(
+            HANDLER.exec_func(a, &["12.323", "212.32"]),
+            Ok("12.323".to_owned())
+        );
+    }
+}
+
+#[test]
+fn test_edge_cases() {
+    for a in ["-d", "--division"] {
+        assert_eq!(
+            HANDLER.exec_func(a, &["a", "2.0"]),
+            Err("invalid float literal".to_owned())
+        );
+    }
+
+    for a in ["-r", "--remainder"] {
+        assert_eq!(
+            HANDLER.exec_func(a, &["2.0", "f"]),
+            Err("invalid float literal".to_owned())
+        );
+    }
+
+    for a in ["-d", "--division"] {
+        assert_eq!(HANDLER.exec_func(a, &["1.0", "0.0"]), Ok("inf".to_owned()));
+    }
+
+    for a in ["-r", "--remainder"] {
+        assert_eq!(HANDLER.exec_func(a, &["1.0", "0.0"]), Ok("NaN".to_owned()));
+    }
 }

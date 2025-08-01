@@ -28,10 +28,6 @@ bigger = { path = "../bigger" }
 string_permutation = { path = "../string_permutation" }
 hashing = { path = "../hashing" }
 collect = { path = "../collect" }
-unwrap_or_expect = { path = "../unwrap_or_expect" }
-handling = { path = "../handling" }
-profanity_filter = { path = "../profanity_filter" }
-question_mark = { path = "../question_mark" }
 banner = { path = "../banner" }
 
 [[bin]]

@@ -2,7 +2,7 @@
 members = [
     "check",
     "borrow", "to_url", "string_literals", "name_initials", "ownership", "copy", "borrow_me_the_reference", "tic_tac_toe", "arrange_it", "changes", "circle", "card_deck", "arrays", "strings", "capitalizing", "edit_distance", "simple_hash", "bigger", "string_permutation", "hashing", "collect", "drawing",
-    "loop"
+    "banner"
 
 ]
 resolver = "3"

@@ -29,6 +29,9 @@ string_permutation = { path = "../string_permutation" }
 hashing = { path = "../hashing" }
 collect = { path = "../collect" }
 banner = { path = "../banner" }
+middle_day = { path = "../middle_day" }
+does_it_fit = { path = "../does_it_fit" }
+chrono = "0.4.41"
 
 [[bin]]
 name = "check"

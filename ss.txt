@@ -7,3 +7,9 @@ info: installing component 'rust-docs'
 info: installing component 'rust-std'
 info: installing component 'rustc'
 info: installing component 'rustfmt'
+
+cargo run
+cargo test
+cargo new pro_name
+cargo check
+cargo new --lib lib_name

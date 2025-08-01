@@ -726,95 +726,143 @@
 //     println!("{:?}", a.get_fourth_layer());
 // }
 
-use banner::*;
-use std::{collections::HashMap, sync::LazyLock};
+// use banner::*;
+// use std::{collections::HashMap, sync::LazyLock};
+
+// fn main() {
+//     let mut handler = FlagsHandler {
+//         flags: HashMap::new(),
+//     };
+
+//     let d = Flag::opt_flag("division", "divides the values, formula (a / b)");
+//     let r = Flag::opt_flag(
+//         "remainder",
+//         "remainder of the division between two values, formula (a % b)",
+//     );
+
+//     handler.add_flag(d, div);
+//     handler.add_flag(r, rem);
+
+//     println!("{:?}", handler.exec_func("-d", &["1.0", "2.0"]));
+
+//     println!("{:?}", handler.exec_func("-r", &["2.0", "2.0"]));
+
+//     println!("{:?}", handler.exec_func("--division", &["a", "2.0"]));
+
+//     println!("{:?}", handler.exec_func("--remainder", &["2.0", "fd"]));
+// }
+
+// static HANDLER: LazyLock<FlagsHandler> = LazyLock::new(|| {
+//     let mut handler = FlagsHandler {
+//         flags: HashMap::new(),
+//     };
+
+//     handler.add_flag(Flag::opt_flag("division", "divides two numbers"), div);
+//     handler.add_flag(
+//         Flag::opt_flag(
+//             "remainder",
+//             "gives the remainder of the division between two numbers",
+//         ),
+//         rem,
+//     );
+
+//     handler
+// });
+
+// #[test]
+// fn test_simple() {
+//     for a in ["-d", "--division"] {
+//         assert_eq!(HANDLER.exec_func(a, &["1.0", "2.0"]), Ok("0.5".to_owned()));
+//     }
+
+//     for a in ["-r", "--remainder"] {
+//         assert_eq!(HANDLER.exec_func(a, &["2.0", "2.0"]), Ok("0".to_owned()));
+//     }
+
+//     for a in ["-d", "--division"] {
+//         assert_eq!(
+//             HANDLER.exec_func(a, &["12.323", "212.32"]),
+//             Ok("0.058039751318764134".to_owned())
+//         );
+//     }
+
+//     for a in ["-r", "--remainder"] {
+//         assert_eq!(
+//             HANDLER.exec_func(a, &["12.323", "212.32"]),
+//             Ok("12.323".to_owned())
+//         );
+//     }
+// }
+
+// #[test]
+// fn test_edge_cases() {
+//     for a in ["-d", "--division"] {
+//         assert_eq!(
+//             HANDLER.exec_func(a, &["a", "2.0"]),
+//             Err("invalid float literal".to_owned())
+//         );
+//     }
+
+//     for a in ["-r", "--remainder"] {
+//         assert_eq!(
+//             HANDLER.exec_func(a, &["2.0", "f"]),
+//             Err("invalid float literal".to_owned())
+//         );
+//     }
+
+//     for a in ["-d", "--division"] {
+//         assert_eq!(HANDLER.exec_func(a, &["1.0", "0.0"]), Ok("inf".to_owned()));
+//     }
+
+//     for a in ["-r", "--remainder"] {
+//         assert_eq!(HANDLER.exec_func(a, &["1.0", "0.0"]), Ok("NaN".to_owned()));
+//     }
+// }
+
+
+// use middle_day::*;
+
+// fn main() {
+//     println!("{:?}", middle_day(1022));
+// }
+
+// use chrono::Weekday;
+// use middle_day::*;
+
+// #[test]
+// fn leap_years() {
+//     assert!(middle_day(1892).is_none(), "1892 was a leap year!");
+//     assert!(middle_day(1904).is_none(), "1904 was a leap year!");
+//     assert!(middle_day(2012).is_none(), "2012 was a leap year!");
+// }
+
+// #[test]
+// fn weekdays() {
+//     assert_eq!(Weekday::Tue, middle_day(2019).unwrap());
+//     assert_eq!(Weekday::Wed, middle_day(1997).unwrap());
+//     assert_eq!(Weekday::Mon, middle_day(1663).unwrap());
+//     assert_eq!(Weekday::Wed, middle_day(1873).unwrap());
+//     assert_eq!(Weekday::Thu, middle_day(1953).unwrap());
+//     assert_eq!(Weekday::Wed, middle_day(1879).unwrap());
+// }
+
+use does_it_fit::*;
 
 fn main() {
-    let mut handler = FlagsHandler {
-        flags: HashMap::new(),
-    };
-
-    let d = Flag::opt_flag("division", "divides the values, formula (a / b)");
-    let r = Flag::opt_flag(
-        "remainder",
-        "remainder of the division between two values, formula (a % b)",
+    println!(
+        "Do 100 rectangles (2x1) fit in a 2 by 4 square? {}",
+        area_fit((2, 4), GeometricalShapes::Rectangle, 100, (2, 1))
     );
-
-    handler.add_flag(d, div);
-    handler.add_flag(r, rem);
-
-    println!("{:?}", handler.exec_func("-d", &["1.0", "2.0"]));
-
-    println!("{:?}", handler.exec_func("-r", &["2.0", "2.0"]));
-
-    println!("{:?}", handler.exec_func("--division", &["a", "2.0"]));
-
-    println!("{:?}", handler.exec_func("--remainder", &["2.0", "fd"]));
-}
-
-static HANDLER: LazyLock<FlagsHandler> = LazyLock::new(|| {
-    let mut handler = FlagsHandler {
-        flags: HashMap::new(),
-    };
-
-    handler.add_flag(Flag::opt_flag("division", "divides two numbers"), div);
-    handler.add_flag(
-        Flag::opt_flag(
-            "remainder",
-            "gives the remainder of the division between two numbers",
-        ),
-        rem,
-    );
-
-    handler
-});
-
-#[test]
-fn test_simple() {
-    for a in ["-d", "--division"] {
-        assert_eq!(HANDLER.exec_func(a, &["1.0", "2.0"]), Ok("0.5".to_owned()));
-    }
-
-    for a in ["-r", "--remainder"] {
-        assert_eq!(HANDLER.exec_func(a, &["2.0", "2.0"]), Ok("0".to_owned()));
-    }
-
-    for a in ["-d", "--division"] {
-        assert_eq!(
-            HANDLER.exec_func(a, &["12.323", "212.32"]),
-            Ok("0.058039751318764134".to_owned())
-        );
-    }
-
-    for a in ["-r", "--remainder"] {
-        assert_eq!(
-            HANDLER.exec_func(a, &["12.323", "212.32"]),
-            Ok("12.323".to_owned())
-        );
-    }
-}
-
-#[test]
-fn test_edge_cases() {
-    for a in ["-d", "--division"] {
-        assert_eq!(
-            HANDLER.exec_func(a, &["a", "2.0"]),
-            Err("invalid float literal".to_owned())
-        );
-    }
-
-    for a in ["-r", "--remainder"] {
-        assert_eq!(
-            HANDLER.exec_func(a, &["2.0", "f"]),
-            Err("invalid float literal".to_owned())
-        );
-    }
-
-    for a in ["-d", "--division"] {
-        assert_eq!(HANDLER.exec_func(a, &["1.0", "0.0"]), Ok("inf".to_owned()));
-    }
-
-    for a in ["-r", "--remainder"] {
-        assert_eq!(HANDLER.exec_func(a, &["1.0", "0.0"]), Ok("NaN".to_owned()));
-    }
+    // println!(
+    //     "Do 3 triangles (5 base and 3 height) fit in a 5 by 5 square? {}",
+    //     area_fit((5, 5), GeometricalShapes::Triangle, 3, (5, 3))
+    // );
+    // println!(
+    //     "Do 3 spheres (2 radius) fit in a 5 by 5 by 5 box? {}",
+    //     volume_fit((5, 5, 5), GeometricalVolumes::Sphere, 3, (2, 0, 0))
+    // );
+    // println!(
+    //     "Does 1 parallelepiped (6 base, 7 height and depth 4) fit in a 5 by 7 by 5 parallelepiped? {}",
+    //     volume_fit((5, 7, 5), GeometricalVolumes::Parallelepiped, 1, (6, 7, 4))
+    // );
 }

@@ -1,5 +1,6 @@
 use std::{collections::HashMap, num::ParseFloatError};
 
+#[derive(Debug)]
 pub struct Flag {
     pub short_hand: String,
     pub long_hand: String,
@@ -33,14 +34,16 @@ pub struct FlagsHandler {
 
 impl FlagsHandler {
     pub fn add_flag(&mut self, flag: Flag, func: Callback) {
+        println!("flag {:?}", flag);
         self.flags.insert(String::from(flag.short_hand), func);
+        self.flags.insert(String::from(flag.long_hand), func);
     }
 
     pub fn exec_func(&self, input: &str, argv: &[&str]) -> Result<String, String> {
         // pub fn exec_func(&self, input: &str, argv: &[&str]) {
         let first = argv[0];
         let sec = argv[1];
-        println!("{} {}", first, sec);
+        println!("input : {} ", input);
         if let Some(func) = self.flags.get(input) {
             return match func(first, sec) {
                 Ok(v) => Ok(v.to_string()),
@@ -70,8 +73,8 @@ pub fn div(a: &str, b: &str) -> Result<String, ParseFloatError> {
     match (num1, num2) {
         (Ok(n1), Ok(n2)) => {
             if n2 == 0.0 {
-                // return Err(ParseFloatError::from("invalid float literal"));
-                return Err(f64::from("").unwrap_err());   
+               //  return Err(ParseFloatError::from("invalid float literal"));
+               // return Err(f64::from("").unwrap_err());   
             }
             Ok((n1 / n2).to_string())
         }

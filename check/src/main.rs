@@ -819,6 +819,158 @@
 //     }
 // }
 
+//  use cipher::*;
+
+// fn main() {
+//     println!("{:?}", cipher("1Hello 2world!", "1Svool 2dliow!"));
+//      println!("{:?}", cipher("1Hello 2world!", "svool"));
+// }
+
+// this will be the structure that wil handle the errors
+
+// use error_types::*;
+// use chrono::Utc;
+// fn main() {
+//     let mut form_output = Form {
+//         name: "Lee".to_owned(),
+//         password: "qwqwsa1dty_".to_owned(),
+//     };
+
+//     println!("{:?}", form_output);
+//     println!("{:?}", form_output.validate());
+
+//     form_output.name = "".to_owned();
+//     println!("{:?}", form_output.validate());
+
+//     form_output.name = "as".to_owned();
+//     form_output.password = "dty_1".to_owned();
+//     println!("{:?}", form_output.validate());
+
+//     form_output.password = "asdasASd(_".to_owned();
+//     println!("{:?}", form_output.validate());
+
+//     form_output.password = "asdasASd123SA".to_owned();
+//     println!("{:?}", form_output.validate());
+// }
+
+// #[test]
+// fn test_error_type() {
+//     let cases = [
+//         (
+//             Form {
+//                 name: "Katy".to_owned(),
+//                 password: "qwTw12&%$3sa1dty_".to_owned(),
+//             },
+//             Ok(()),
+//         ),
+//         (
+//             Form {
+//                 name: "".to_owned(),
+//                 password: "qwTw12&%$3sa1dty_".to_owned(),
+//             },
+//             Err(FormError {
+//                 form_values: ("name", "".to_owned()),
+//                 date: Utc::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+//                 err: "Username is empty",
+//             }),
+//         ),
+//         (
+//             Form {
+//                 name: "Someone".to_owned(),
+//                 password: "12345".to_owned(),
+//             },
+//             Err(FormError {
+//                 form_values: ("password", "12345".to_owned()),
+//                 date: Utc::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+//                 err: "Password should be at least 8 characters long",
+//             }),
+//         ),
+//         (
+//             Form {
+//                 name: "Someone".to_owned(),
+//                 password: "sdASDsrW".to_owned(),
+//             },
+//             Err(FormError {
+//                 form_values: ("password", "sdASDsrW".to_owned()),
+//                 date: Utc::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+//                 err: "Password should be a combination of ASCII numbers, letters and symbols",
+//             }),
+//         ),
+//         (
+//             Form {
+//                 name: "Someone".to_owned(),
+//                 password: "dsGE1SAD213".to_owned(),
+//             },
+//             Err(FormError {
+//                 form_values: ("password", "dsGE1SAD213".to_owned()),
+//                 date: Utc::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+//                 err: "Password should be a combination of ASCII numbers, letters and symbols",
+//             }),
+//         ),
+//         (
+//             Form {
+//                 name: "Someone".to_owned(),
+//                 password: "dsaSD&%DF!?=".to_owned(),
+//             },
+//             Err(FormError {
+//                 form_values: ("password", String::from("dsaSD&%DF!?=")),
+//                 date: Utc::now().format("%Y-%m-%d %H:%M:%S").to_string(),
+//                 err: "Password should be a combination of ASCII numbers, letters and symbols",
+//             }),
+//         ),
+//     ];
+
+//     for (form, expected) in cases {
+//         assert_eq!(form.validate(), expected);
+//     }
+// }
+
+// use std::{fs::File, io::Write};
+
+// use boxing_todo::TodoList;
+
+// fn main() {
+//     let files = [
+//         (
+//             "todo.json",
+//             r#"{
+//                 "title" : "TODO LIST FOR PISCINE RUST",
+//                 "tasks": [
+//                     { "id": 0, "description": "do this", "level": 0 },
+//                     { "id": 1, "description": "do that", "level": 5 }
+//                 ]
+//             }"#,
+//         ),
+//         (
+//             "todo_empty.json",
+//             r#"{
+//                 "title" : "TODO LIST FOR PISCINE RUST",
+//                 "tasks": []
+//             }"#,
+//         ),
+//         (
+//             "malformed_object.json",
+//             r#"{
+//                 "something": ,
+//             }"#,
+//         ),
+//     ];
+
+//     for (name, content) in files {
+//         File::create(name)
+//             .unwrap()
+//             .write(content.as_bytes())
+//             .unwrap();
+
+//         let todos = TodoList::get_todo(name);
+//         match todos {
+//             Ok(list) => println!("{:?}", list),
+//             Err(e) => {
+//                 println!("{}: {:?}", e.to_string(), e.source());
+//             }
+//         }
+//     }
+// }
 
 // use middle_day::*;
 
@@ -826,43 +978,531 @@
 //     println!("{:?}", middle_day(1022));
 // }
 
-// use chrono::Weekday;
-// use middle_day::*;
+// use does_it_fit::*;
+// // use does_it_fit::areas_volumes::GeometricalShapes;
+// // use does_it_fit::areas_volumes::GeometricalVolumes;
 
-// #[test]
-// fn leap_years() {
-//     assert!(middle_day(1892).is_none(), "1892 was a leap year!");
-//     assert!(middle_day(1904).is_none(), "1904 was a leap year!");
-//     assert!(middle_day(2012).is_none(), "2012 was a leap year!");
+// fn main() {
+//     println!(
+//         "Do 100 rectangles (2x1) fit in a 2 by 4 square? {}",
+//         area_fit((2, 4), GeometricalShapes::Rectangle, 100, (2, 1))
+//     );
+//     println!(
+//         "Do 3 triangles (5 base and 3 height) fit in a 5 by 5 square? {}",
+//         area_fit((5, 5), GeometricalShapes::Triangle, 3, (5, 3))
+//     );
+//     println!(
+//         "Do 3 spheres (2 radius) fit in a 5 by 5 by 5 box? {}",
+//         volume_fit((5, 5, 5), GeometricalVolumes::Sphere, 3, (2, 0, 0))
+//     );
+//     println!(
+//         "Does 1 parallelepiped (6 base, 7 height and depth 4) fit in a 5 by 7 by 5 parallelepiped? {}",
+//         volume_fit((5, 7, 5), GeometricalVolumes::Parallelepiped, 1, (6, 7, 4))
+//     );
 // }
 
 // #[test]
-// fn weekdays() {
-//     assert_eq!(Weekday::Tue, middle_day(2019).unwrap());
-//     assert_eq!(Weekday::Wed, middle_day(1997).unwrap());
-//     assert_eq!(Weekday::Mon, middle_day(1663).unwrap());
-//     assert_eq!(Weekday::Wed, middle_day(1873).unwrap());
-//     assert_eq!(Weekday::Thu, middle_day(1953).unwrap());
-//     assert_eq!(Weekday::Wed, middle_day(1879).unwrap());
+// fn no_volumes_shapes() {
+//     assert!(area_fit((2, 5), GeometricalShapes::Circle, 0, (2, 1)));
+//     assert!(area_fit((2, 2), GeometricalShapes::Rectangle, 0, (6, 10)));
+//     assert!(volume_fit(
+//         (2, 5, 3),
+//         GeometricalVolumes::Cone,
+//         0,
+//         (1, 1, 1)
+//     ));
+//     assert!(volume_fit(
+//         (3, 5, 7),
+//         GeometricalVolumes::Parallelepiped,
+//         0,
+//         (2, 6, 3)
+//     ));
 // }
 
-use does_it_fit::*;
+// #[test]
+// fn equal_size() {
+//     assert!(area_fit((2, 5), GeometricalShapes::Square, 1, (2, 5)));
+//     assert!(volume_fit(
+//         (3, 1, 4),
+//         GeometricalVolumes::Cube,
+//         1,
+//         (1, 3, 4)
+//     ));
+// }
+
+// #[test]
+// fn all_shapes() {
+//     assert!(!area_fit((3, 5), GeometricalShapes::Circle, 2, (2, 0)));
+//     assert!(area_fit((8, 6), GeometricalShapes::Triangle, 5, (5, 2)));
+//     assert!(area_fit((7, 3), GeometricalShapes::Rectangle, 2, (2, 4)));
+//     assert!(area_fit((5, 5), GeometricalShapes::Square, 1, (2, 4)));
+// }
+
+// #[test]
+// fn all_volumes() {
+//     assert!(volume_fit(
+//         (5, 6, 3),
+//         GeometricalVolumes::Cube,
+//         2,
+//         (3, 3, 4)
+//     ));
+//     assert!(!volume_fit(
+//         (7, 4, 4),
+//         GeometricalVolumes::Cone,
+//         1,
+//         (8, 2, 0)
+//     ));
+//     assert!(volume_fit(
+//         (2, 5, 3),
+//         GeometricalVolumes::Sphere,
+//         1,
+//         (1, 1, 1)
+//     ));
+//     assert!(!volume_fit(
+//         (2, 5, 3),
+//         GeometricalVolumes::Parallelepiped,
+//         31,
+//         (1, 1, 1)
+//     ));
+//     assert!(volume_fit(
+//         (7, 5, 3),
+//         GeometricalVolumes::TriangularPyramid,
+//         3,
+//         (3, 2, 1)
+//     ));
+// }
+
+// use macro_calculator::*;
+
+// fn main() {
+//     let foods = [
+//         Food {
+//             name: "big mac".to_owned(),
+//             calories: ("2133.84kJ".to_owned(), "510kcal".to_owned()),
+//             proteins: 27.,
+//             fats: 26.,
+//             carbs: 41.,
+//             nbr_of_portions: 2.,
+//         },
+//         Food {
+//             name: "pizza margherita".to_owned(),
+//             calories: ("1500.59kJ".to_owned(), "358.65kcal".to_owned()),
+//             proteins: 13.89,
+//             fats: 11.21,
+//             carbs: 49.07,
+//             nbr_of_portions: 4.9,
+//         },
+//     ];
+
+//     println!("{:#}", calculate_macros(&foods));
+// }
+
+// #[test]
+// fn testing_macros_values() {
+//     let a = Food {
+//         name: "light milk".to_owned(),
+//         calories: ("148kJ".to_owned(), "35kcal".to_owned()),
+//         proteins: 3.5,
+//         fats: 0.1,
+//         carbs: 5.0,
+//         nbr_of_portions: 0.7,
+//     };
+//     let b = Food {
+//         name: "oat cookies".to_owned(),
+//         calories: ("1996kJ".to_owned(), "477kcal".to_owned()),
+//         proteins: 8.2,
+//         fats: 21.0,
+//         carbs: 60.4,
+//         nbr_of_portions: 1.2,
+//     };
+
+//     let macros = calculate_macros(&[a, b]);
+
+//     assert_eq!(macros["cals"].as_f64().unwrap(), 596.9);
+//     assert_eq!(macros["carbs"].as_f64().unwrap(), 75.98);
+//     assert_eq!(macros["proteins"].as_f64().unwrap(), 12.29);
+//     assert_eq!(macros["fats"].as_f64().unwrap(), 25.27);
+// }
+
+// #[test]
+// fn testing_no_food() {
+//     let macros = calculate_macros(&[]);
+
+//     assert_eq!(macros["cals"].as_f64().unwrap(), 0.0);
+//     assert_eq!(macros["carbs"].as_f64().unwrap(), 0.0);
+//     assert_eq!(macros["proteins"].as_f64().unwrap(), 0.0);
+//     assert_eq!(macros["fats"].as_f64().unwrap(), 0.0);
+// }
+
+// #[test]
+// fn big_values() {
+//     let macros = calculate_macros(&[
+//         Food {
+//             name: "big mac".to_owned(),
+//             calories: ("2133.84kJ".to_owned(), "510kcal".to_owned()),
+//             proteins: 27.0,
+//             fats: 26.0,
+//             carbs: 41.0,
+//             nbr_of_portions: 2.0,
+//         },
+//         Food {
+//             name: "pizza margherita".to_owned(),
+//             calories: ("1500.59kJ".to_owned(), "358.65kcal".to_owned()),
+//             proteins: 13.89,
+//             fats: 11.21,
+//             carbs: 49.07,
+//             nbr_of_portions: 4.9,
+//         },
+//     ]);
+
+//     assert_eq!(macros["cals"].as_f64().unwrap(), 2777.39);
+//     assert_eq!(macros["carbs"].as_f64().unwrap(), 322.44);
+//     assert_eq!(macros["proteins"].as_f64().unwrap(), 122.06);
+//     assert_eq!(macros["fats"].as_f64().unwrap(), 106.93);
+// }
+
+// use shopping_mall::*;
+// use shopping_mall::mall::Floor;
+// use shopping_mall::mall::Guard;
+// use shopping_mall::mall::Mall;
+// use shopping_mall::mall::Store;
+// use shopping_mall::mall::Employee;
+
+// fn main() {
+//     let mut mall = Mall::new(
+//         "La Vie Funchal",
+//         [
+//             (
+//                 "John Oliver",
+//                 Guard {
+//                     age: 34,
+//                     years_experience: 7,
+//                 },
+//             ),
+//             (
+//                 "Bob Schumacher",
+//                 Guard {
+//                     age: 53,
+//                     years_experience: 15,
+//                 },
+//             ),
+//         ]
+//         .into(),
+//         [
+//             (
+//                 "Ground Floor",
+//                 Floor::new(
+//                     [
+//                         (
+//                             "Footzo",
+//                             Store::new(
+//                                 [
+//                                     (
+//                                         "Finbar Haines",
+//                                         Employee {
+//                                             age: 36,
+//                                             working_hours: (9, 14),
+//                                             salary: 650.88,
+//                                         },
+//                                     ),
+//                                     (
+//                                         "Sienna-Rose Penn",
+//                                         Employee {
+//                                             age: 26,
+//                                             working_hours: (9, 22),
+//                                             salary: 1000.43,
+//                                         },
+//                                     ),
+//                                 ]
+//                                 .into(),
+//                                 50,
+//                             ),
+//                         ),
+//                         (
+//                             "Swashion",
+//                             Store::new(
+//                                 [
+//                                     (
+//                                         "Abdallah Stafford",
+//                                         Employee {
+//                                             age: 54,
+//                                             working_hours: (8, 22),
+//                                             salary: 1234.21,
+//                                         },
+//                                     ),
+//                                     (
+//                                         "Marian Snyder",
+//                                         Employee {
+//                                             age: 21,
+//                                             working_hours: (8, 14),
+//                                             salary: 831.9,
+//                                         },
+//                                     ),
+//                                 ]
+//                                 .into(),
+//                                 43,
+//                             ),
+//                         ),
+//                     ]
+//                     .into(),
+//                     300,
+//                 ),
+//             ),
+//             (
+//                 "Supermarket",
+//                 Floor::new(
+//                     [(
+//                         "Pretail",
+//                         Store::new(
+//                             [
+//                                 (
+//                                     "Yara Wickens",
+//                                     Employee {
+//                                         age: 39,
+//                                         working_hours: (9, 14),
+//                                         salary: 853.42,
+//                                     },
+//                                 ),
+//                                 (
+//                                     "Indiana Baxter",
+//                                     Employee {
+//                                         age: 33,
+//                                         working_hours: (13, 20),
+//                                         salary: 991.71,
+//                                     },
+//                                 ),
+//                                 (
+//                                     "Jadine Page",
+//                                     Employee {
+//                                         age: 48,
+//                                         working_hours: (13, 20),
+//                                         salary: 743.21,
+//                                     },
+//                                 ),
+//                                 (
+//                                     "Tyler Hunt",
+//                                     Employee {
+//                                         age: 63,
+//                                         working_hours: (13, 20),
+//                                         salary: 668.25,
+//                                     },
+//                                 ),
+//                                 (
+//                                     "Mohsin Mcgee",
+//                                     Employee {
+//                                         age: 30,
+//                                         working_hours: (19, 24),
+//                                         salary: 703.83,
+//                                     },
+//                                 ),
+//                                 (
+//                                     "Antoine Goulding",
+//                                     Employee {
+//                                         age: 45,
+//                                         working_hours: (19, 24),
+//                                         salary: 697.12,
+//                                     },
+//                                 ),
+//                                 (
+//                                     "Mark Barnard",
+//                                     Employee {
+//                                         age: 53,
+//                                         working_hours: (19, 24),
+//                                         salary: 788.81,
+//                                     },
+//                                 ),
+//                             ]
+//                             .into(),
+//                             950,
+//                         ),
+//                     )]
+//                     .into(),
+//                     1000,
+//                 ),
+//             ),
+//         ]
+//         .into(),
+//     );
+
+//     // returns the biggest store
+//     println!("Biggest store: {:#?}", biggest_store(&mall));
+
+//     // returns the list with the highest paid employees
+//     // println!("Highest paid employee: {:#?}", highest_paid_employee(&mall));
+
+//     // returns the number of employees
+//     // println!("Number of employees: {}", nbr_of_employees(&mall));
+
+//     // checks if it is needed to add securities
+//     // check_for_securities(
+//     //     &mut mall,
+//     //     [
+//     //         (
+//     //             "Peter Solomons",
+//     //             Guard {
+//     //                 age: 45,
+//     //                 years_experience: 20,
+//     //             },
+//     //         ),
+//     //         (
+//     //             "William Charles",
+//     //             Guard {
+//     //                 age: 32,
+//     //                 years_experience: 10,
+//     //             },
+//     //         ),
+//     //         (
+//     //             "Leonardo Changretta",
+//     //             Guard {
+//     //                 age: 23,
+//     //                 years_experience: 0,
+//     //             },
+//     //         ),
+//     //         (
+//     //             "Vlad Levi",
+//     //             Guard {
+//     //                 age: 38,
+//     //                 years_experience: 8,
+//     //             },
+//     //         ),
+//     //         (
+//     //             "Faruk Berkai",
+//     //             Guard {
+//     //                 age: 40,
+//     //                 years_experience: 15,
+//     //             },
+//     //         ),
+//     //         (
+//     //             "Christopher Smith",
+//     //             Guard {
+//     //                 age: 35,
+//     //                 years_experience: 9,
+//     //             },
+//     //         ),
+//     //         (
+//     //             "Jason Mackie",
+//     //             Guard {
+//     //                 age: 26,
+//     //                 years_experience: 2,
+//     //             },
+//     //         ),
+//     //         (
+//     //             "Kenzie Mair",
+//     //             Guard {
+//     //                 age: 34,
+//     //                 years_experience: 8,
+//     //             },
+//     //         ),
+//     //         (
+//     //             "Bentley Larson",
+//     //             Guard {
+//     //                 age: 33,
+//     //                 years_experience: 10,
+//     //             },
+//     //         ),
+//     //         (
+//     //             "Ray Storey",
+//     //             Guard {
+//     //                 age: 37,
+//     //                 years_experience: 12,
+//     //             },
+//     //         ),
+//     //     ]
+//     //     .map(|(n, d)| (n.to_owned(), d))
+//     //     .into(),
+//     // );
+
+//     // raises or cuts the salary of every employee
+//     // cut_or_raise(&mut mall);
+
+//     // println!("{:#?}", mall);
+// }
+
+
+// use stars::stars;
+
+// fn main() {
+//     println!("{}", stars(1));
+//     println!("{}", stars(4));
+//     println!("{}", stars(5));
+// }
+
+// use scores::*;
+
+// fn main() {
+//     println!("{}", score("a"));
+//     println!("{}", score("ã ê Á?"));
+//     println!("{}", score("ThiS is A Test"));
+// }
+
+// use searching::*;
+
+// fn main() {
+//     let ar = [1, 3, 4, 6, 8, 9, 11, 8];
+//     let f = search(&ar, 8);
+//     println!(
+//         "the element 8 is last in the position {:?} in the array {:?}",
+//         f, ar
+//     );
+// }
+
+// use searching::*;
+
+// #[test]
+// fn test_search_a_value_in_an_array() {
+//     assert_eq!(search(&[6], 6), Some(0));
+//     assert_eq!(search(&[1, 2], 1), Some(0));
+//     assert_eq!(search(&[1, 2], 2), Some(1));
+// }
+// #[test]
+// fn test_middle_of_an_array() {
+//     assert_eq!(search(&[1, 3, 4, 6, 8, 9, 11], 6), Some(3));
+// }
+
+// #[test]
+// fn test_beginning_of_an_array() {
+//     assert_eq!(search(&[1, 3, 4, 6, 8, 9, 11], 1), Some(0));
+// }
+
+// #[test]
+// fn test_end_of_an_array() {
+//     assert_eq!(search(&[1, 3, 4, 6, 8, 9, 11], 11), Some(6));
+// }
+
+// #[test]
+// fn test_long_array() {
+//     assert_eq!(
+//         search(&[1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 634], 144),
+//         Some(9)
+//     );
+//     assert_eq!(
+//         search(&[1, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377], 21),
+//         Some(5)
+//     );
+// }
+
+// #[test]
+// fn test_with_duplicates() {
+//     assert_eq!(search(&[1, 3, 4, 6, 8, 9, 11, 1], 1), Some(7));
+//     assert_eq!(search(&[1, 3, 9, 6, 8, 9, 11], 9), Some(5));
+// }
+
+// #[test]
+// fn test_value_is_not_included() {
+//     assert_eq!(search(&[1, 3, 4, 6, 8, 9, 11], 7), None);
+//     assert_eq!(search(&[1, 3, 4, 6, 8, 9, 11], 0), None);
+//     assert_eq!(search(&[1, 3, 4, 6, 8, 9, 11], 13), None);
+//     assert_eq!(search(&[], 1), None);
+// }
+ 
+use ordinal::*;
 
 fn main() {
-    println!(
-        "Do 100 rectangles (2x1) fit in a 2 by 4 square? {}",
-        area_fit((2, 4), GeometricalShapes::Rectangle, 100, (2, 1))
-    );
-    // println!(
-    //     "Do 3 triangles (5 base and 3 height) fit in a 5 by 5 square? {}",
-    //     area_fit((5, 5), GeometricalShapes::Triangle, 3, (5, 3))
-    // );
-    // println!(
-    //     "Do 3 spheres (2 radius) fit in a 5 by 5 by 5 box? {}",
-    //     volume_fit((5, 5, 5), GeometricalVolumes::Sphere, 3, (2, 0, 0))
-    // );
-    // println!(
-    //     "Does 1 parallelepiped (6 base, 7 height and depth 4) fit in a 5 by 7 by 5 parallelepiped? {}",
-    //     volume_fit((5, 7, 5), GeometricalVolumes::Parallelepiped, 1, (6, 7, 4))
-    // );
+    println!("{}", num_to_ordinal(1));
+    println!("{}", num_to_ordinal(22));
+    println!("{}", num_to_ordinal(11));
+    println!("{}", num_to_ordinal(12));
+    println!("{}", num_to_ordinal(43));
+    println!("{}", num_to_ordinal(47));
 }
+

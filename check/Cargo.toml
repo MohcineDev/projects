@@ -26,47 +26,31 @@ edit_distance = { path = "../edit_distance" }
 simple_hash = { path = "../simple_hash" }
 bigger = { path = "../bigger" }
 string_permutation = { path = "../string_permutation" }
-hashing = { path = "../hashing" }
+hashing = { path = "../hashing" }   
 collect = { path = "../collect" }
+unwrap_or_expect = { path = "../unwrap_or_expect" }
+handling = { path = "../handling" }
+profanity_filter = { path = "../profanity_filter" }
+question_mark = { path = "../question_mark" }
 banner = { path = "../banner" }
+cipher = { path = "../cipher" }
+error_types = { path = "../error_types" }
+chrono = "0.4.38" 
+# boxing_todo = { path = "../boxing_todo" }
+fmt = "0.1.0"
 middle_day = { path = "../middle_day" }
 does_it_fit = { path = "../does_it_fit" }
-chrono = "0.4.41"
+macro_calculator = { path = "../macro_calculator" }
+json = "0.12.4"
+serde_json = "1.0.142"
+shopping_mall = { path = "../shopping_mall" }
+serde = "1.0.219"
+stars = { path = "../stars" }
+scores = { path = "../scores" }
+searching = { path = "../searching" }
+ordinal = { path = "../ordinal" }
 
 [[bin]]
 name = "check"
 path = "src/main.rs"
-
-# [lib]
-# name = "temperature_conv"  # Name of the library crate
-# path = "../temperature_conv/src/lib.rs"
-
-# [lib]
-# name = "speed_transformation"  # Name of the library crate
-# path = "../speed_transformation/src/lib.rs"
-
-
-# [lib]
-# name = "groceries"  # Name of the library crate
-# path = "../groceries/src/lib.rs"
-
-
-# [lib]
-# name = "find_factorial"  # Name of the library crate
-# path = "../find_factorial/src/lib.rs"
-
-#  [lib]
-# name = "fibonacci2"  # Name of the library crate
-# path = "../fibonacci2/src/lib.rs"
-
-#   [lib]
-# name = "division_and_remainder"  # Name of the library crate
-# path = "../division_and_remainder/src/lib.rs"
-
-
-# [lib]
-# name = "tuples_refs"               # Name of the library crate
-# path = "../tuples_refs/src/lib.rs"
-# [lib]
-# name = "borrow"               # Name of the library crate
-# path = "../borrow/src/lib.rs"
+ 
